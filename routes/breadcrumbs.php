@@ -16,6 +16,13 @@ Breadcrumbs::for('dashboard', function (BreadcrumbTrail $trail) {
     $trail->push('Dashboard', route('dashboard'));
 });
 
+// Home > Post
+Breadcrumbs::for('post', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Post', route('post-management'));
+});
+
+
 // Home > Dashboard > User Management
 Breadcrumbs::for('user-management.index', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');

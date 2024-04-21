@@ -24,7 +24,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/post', [DashboardController::class, 'post'])->name('post');
+    Route::get('/post-management', [DashboardController::class, 'post'])->name('post-management');
 
     Route::name('user-management.')->group(function () {
         Route::resource('/user-management/users', UserManagementController::class);
