@@ -58,7 +58,7 @@
                             </div>
                         </div>
 
-                        {{-- <div class="col-md-3">
+                        <div class="col-md-3">
                             <div class="form-check form-switch form-check-custom form-check-solid">
                                 <input class="form-check-input platform" type="checkbox" value="twitter"
                                     id="twitter" />
@@ -66,7 +66,7 @@
                                     <i class="fab fa-twitter"></i> Twitter
                                 </label>
                             </div>
-                        </div> --}}
+                        </div>
 
                         <div class="col-md-3">
                             <div class="form-check form-switch form-check-custom form-check-solid">
@@ -78,6 +78,17 @@
                             </div>
                         </div>
                     </div>
+                    {{-- <div class="row mt-4">
+                        <div class="col-md-3">
+                            <div class="form-check form-switch form-check-custom form-check-solid">
+                                <input class="form-check-input platform" type="checkbox" value="pinterest"
+                                    id="pinterest" />
+                                <label class="form-check-label text-dark" for="pinterest">
+                                    <i class="fab fa-pinterest"></i> Pinterest
+                                </label>
+                            </div>
+                        </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-end">
@@ -118,6 +129,7 @@
 
             // Check if at least one platform is selected
             if (platforms.length === 0) {
+                $("#responseContainer").empty();
                 alert("Please select at least one platform.");
                 return; // Stop further execution if no platform is selected
             }
@@ -128,6 +140,8 @@
                 platforms: platforms,
             };
 
+
+
             const API_KEY = "B9F3BQ9-7GZM27P-N4MJ635-HH5T32Y";
 
             $.ajax({
@@ -135,7 +149,7 @@
                 type: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${API_KEY}`
+                    "Authorization": `Bearer B9F3BQ9-7GZM27P-N4MJ635-HH5T32Y`
                 },
                 data: JSON.stringify(postData),
                 success: function(response) {
@@ -144,12 +158,12 @@
 
                     // Unselect all platform switches (checkboxes)
                     $(".platform").prop("checked", false);
-                    $("#responseDiv").show();
                     displayResponseData(response);
                 },
                 error: function(xhr, status, error) {
-                    console.error(error);
-                    // Handle error here
+                    console.log(error);
+                    $("#responseContainer").empty();
+                    $("#responseContainer").html('<h4 class="alert alert-danger">Check error log</h4>');
                 }
             });
 
@@ -159,6 +173,9 @@
         // Execute the function when the button is clicked using jQuery
         $(document).ready(function() {
             $("#getDataButton").click(function() {
+                $("#responseDiv").show();
+                $("#responseContainer").html(
+                    '<h4 class="alert alert-primary">Sending Post, please wait...</h4>');
                 getPostData();
             });
         });
